@@ -11,10 +11,6 @@
 AFPSLaunchPad::AFPSLaunchPad()
 {	
 	OverlapComp = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapComp"));
-	// OverlapComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	// OverlapComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	// OverlapComp->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
-	// OverlapComp->SetCollisionResponseToChannel(ECC_PhysicsBody, ECR_Overlap);
 	OverlapComp->SetBoxExtent(FVector(75.f, 75.f, 20.f));
 	RootComponent = OverlapComp;
 

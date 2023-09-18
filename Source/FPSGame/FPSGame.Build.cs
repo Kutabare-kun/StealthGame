@@ -13,7 +13,8 @@ public class FPSGame : ModuleRules
 			"Core", 
 			"CoreUObject", 
 			"Engine", 
-			"InputCore"
+			"InputCore",
+			"AIModule"
 		});
 	}
 }
