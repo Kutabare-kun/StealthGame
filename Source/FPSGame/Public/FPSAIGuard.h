@@ -38,6 +38,15 @@ protected:
 
 	EAIState GuardState;
 
+	UPROPERTY(EditInstanceOnly, Category = "AI")
+	bool bPatrol;
+	
+	UPROPERTY(EditAnywhere, Category = "AI", meta = (EditCondition = "bPatrol"))
+	TArray<AActor*> PatrolLocation;
+
+	UPROPERTY(EditAnywhere, Category = "AI", meta = (EditCondition = "bPatrol"))
+	int8 CurrentPatrol;
+
 	UFUNCTION()
 	void OnPawnSeen(APawn* SeenPawn);
 
@@ -52,10 +61,11 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "AI")
 	void OnStateChange(EAIState NewState);
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	void MoveToNextPatrolPoint();
 
+public:
+
+	virtual void Tick(float DeltaSeconds) override;
 };
 
 
