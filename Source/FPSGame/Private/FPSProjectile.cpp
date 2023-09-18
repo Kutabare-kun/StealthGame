@@ -1,5 +1,3 @@
-// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
-
 #include "FPSProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
@@ -29,6 +27,9 @@ AFPSProjectile::AFPSProjectile()
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
+
+	SetReplicates(true);
+	SetReplicateMovement(true);
 }
 
 
@@ -40,7 +41,10 @@ void AFPSProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPr
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 	}
 
-	MakeNoise(1.0f, GetInstigator());
-
-	Destroy();
+	if (HasAuthority())
+	{
+		MakeNoise(1.0f, GetInstigator());
+		
+		Destroy();
+	}
 }

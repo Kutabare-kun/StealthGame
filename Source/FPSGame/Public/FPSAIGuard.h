@@ -36,6 +36,7 @@ protected:
 	
 	FRotator OriginalRotation;
 
+	UPROPERTY(ReplicatedUsing = "OnRep_GuardState")
 	EAIState GuardState;
 
 	UPROPERTY(EditInstanceOnly, Category = "AI")
@@ -47,6 +48,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "AI", meta = (EditCondition = "bPatrol"))
 	int8 CurrentPatrol;
 
+	UFUNCTION()
+	void OnRep_GuardState();
+	
 	UFUNCTION()
 	void OnPawnSeen(APawn* SeenPawn);
 

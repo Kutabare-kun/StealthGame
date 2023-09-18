@@ -5,6 +5,7 @@
 
 #include "DrawDebugHelpers.h"
 #include "FPSGameMode.h"
+#include "UnrealNetwork.h"
 #include "Perception/PawnSensingComponent.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 
@@ -35,6 +36,12 @@ void AFPSAIGuard::BeginPlay()
 	{
 		MoveToNextPatrolPoint();
 	}
+}
+
+
+void AFPSAIGuard::OnRep_GuardState()
+{
+	OnStateChange(GuardState);
 }
 
 
@@ -114,7 +121,7 @@ void AFPSAIGuard::SetGuardState(EAIState NewState)
 
 	GuardState = NewState;
 
-	OnStateChange(GuardState);
+	OnRep_GuardState();
 }
 
 
@@ -142,4 +149,12 @@ void AFPSAIGuard::Tick(float DeltaSeconds)
 			MoveToNextPatrolPoint();
 		}
 	}
+}
+
+
+void AFPSAIGuard::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AFPSAIGuard, GuardState);
 }
